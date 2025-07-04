@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Flora Bella - Sistema de Gestão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="emoji-rotate">🌸</span> Flora Bella - Gestão de Floricultura</h1>
+            <p>Gerencie suas flores, plantas e arranjos com carinho e eficiência</p>
+        </header>
+
+        <!-- Formulário de cadastro -->
+        <section class="form-card">
+            <h2 id="form-titulo">Cadastrar Produto</h2>
+            <form id="produto-form">
+                <div class="campo">
+                    <label for="nome" class="required">Nome do Produto</label>
+                    <input type="text" id="nome" placeholder="Ex: Rosa Vermelha, Orquídea Phalaenopsis" required>
+                </div>
+                
+                <div class="linha">
+                    <div class="campo">
+                        <label for="categoria" class="required">Categoria</label>
+                        <select id="categoria" required>
+                            <option value="">Selecione...</option>
+                            <option value="Flores Cortadas">🌹 Flores Cortadas</option>
+                            <option value="Plantas em Vaso">🪴 Plantas em Vaso</option>
+                            <option value="Arranjos Florais">💐 Arranjos Florais</option>
+                            <option value="Buquês">💝 Buquês</option>
+                            <option value="Plantas Ornamentais">🌿 Plantas Ornamentais</option>
+                            <option value="Vasos e Cachepôs">🏺 Vasos e Cachepôs</option>
+                            <option value="Acessórios">🎀 Acessórios</option>
+                            <option value="Sementes e Mudas">🌱 Sementes e Mudas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="preco" class="required">Preço de Venda (R$)</label>
+                        <input type="number" id="preco" step="0.01" min="0.01" placeholder="0.00" required>
+                    </div>
+                </div>
+
+                <div class="linha">
+                    <div class="campo">
+                        <label for="quantidade" class="required">Quantidade em Estoque</label>
+                        <input type="number" id="quantidade" min="0" placeholder="0" required>
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="data-entrada">Data de Entrada</label>
+                        <input type="date" id="data-entrada">
+                    </div>
+                </div>
+                
+                <div class="botoes">
+                    <button type="submit" id="btn-salvar">💐 Cadastrar Produto</button>
+                    <button type="button" id="btn-cancelar" style="display: none;">Cancelar</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Lista de produtos -->
+        <section class="produtos-card">
+            <h2>Produtos em Estoque</h2>
+            
+            <!-- Barra de busca e filtros -->
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="🔍 Buscar produtos..." class="search-input">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filtrarProdutos('todos')">Todos</button>
+                    <button class="filter-btn" onclick="filtrarProdutos('flores')">🌹 Flores</button>
+                    <button class="filter-btn" onclick="filtrarProdutos('plantas')">🪴 Plantas</button>
+                    <button class="filter-btn" onclick="filtrarProdutos('arranjos')">💐 Arranjos</button>
+                    <button class="filter-btn warning" onclick="filtrarProdutos('baixo')">⚠️ Estoque Baixo</button>
+                </div>
+            </div>
+            
+            <div id="lista-produtos">
+                <!-- Exemplo de produto -->
+                <div class="produto-item">
+                    <div class="produto-imagem">
+                        🌹
+                    </div>
+                    
+                    <div class="produto-info">
+                        <h3>Rosa Vermelha Premium</h3>
+                        <span class="categoria-badge categoria-flores">🌹 Flores Cortadas</span>
+                        <div class="info-grid">
+                            <p><strong>Durabilidade:</strong> 7 dias</p>
+                            <p><strong>Fornecedor:</strong> Cooperflora</p>
+                            <p><strong>Entrada:</strong> 20/06/2024</p>
+                            <p><strong>Cor:</strong> Vermelho</p>
+                        </div>
+                        <div class="validade-indicator validade-ok">
+                            ✓ Produto fresco - 5 dias restantes
+                        </div>
+                    </div>
+                    
+                    <div class="produto-status">
+                        <div class="estoque-visual">
+                            <span class="estoque-numero">24</span>
+                            <span class="estoque-label">unidades</span>
+                        </div>
+                        <span class="status-indicator"></span>
+                    </div>
+                    
+                    <div class="produto-preco">
+                        <span class="preco-valor">R$ 12,50</span>
+                        <span class="preco-unidade">por unidade</span>
+                    </div>
+                    
+                    <div class="produto-acoes">
+                        <button class="btn-acao btn-vender" onclick="venderProduto(1)">💰 Vender</button>
+                        <button class="btn-acao btn-editar" onclick="editarProduto(1)">✏️ Editar</button>
+                        <button class="btn-acao btn-excluir" onclick="excluirProduto(1)">🗑️ Excluir</button>
+                    </div>
+                </div>
+
+                <!-- Exemplo 2 -->
+                <div class="produto-item">
+                    <div class="produto-imagem">
+                        🌺
+                    </div>
+                    
+                    <div class="produto-info">
+                        <h3>Orquídea Phalaenopsis Branca</h3>
+                        <span class="categoria-badge categoria-plantas">🪴 Plantas em Vaso</span>
+                        <div class="info-grid">
+                            <p><strong>Durabilidade:</strong> 30 dias</p>
+                            <p><strong>Fornecedor:</strong> Orquidário SP</p>
+                            <p><strong>Entrada:</strong> 15/06/2024</p>
+                            <p><strong>Cor:</strong> Branco</p>
+                        </div>
+                        <div class="validade-indicator validade-ok">
+                            ✓ Floração saudável
+                        </div>
+                    </div>
+                    
+                    <div class="produto-status">
+                        <div class="estoque-visual">
+                            <span class="estoque-numero">8</span>
+                            <span class="estoque-label">unidades</span>
+                        </div>
+                        <span class="status-indicator status-baixo"></span>
+                    </div>
+                    
+                    <div class="produto-preco">
+                        <span class="preco-valor">R$ 89,90</span>
+                        <span class="preco-unidade">por vaso</span>
+                    </div>
+                    
+                    <div class="produto-acoes">
+                        <button class="btn-acao btn-editar" onclick="editarProduto(2)">✏️ Editar</button>
+                        <button class="btn-acao btn-excluir" onclick="excluirProduto(2)">🗑️ Excluir</button>
+                    </div>
+                </div>
+
+                <!-- Exemplo 3 -->
+                <div class="produto-item">
+                    <div class="produto-imagem">
+                        💐
+                    </div>
+                    
+                    <div class="produto-info">
+                        <h3>Buquê Misto Primavera</h3>
+                        <span class="categoria-badge categoria-arranjos">💐 Arranjos Florais</span>
+                        <div class="info-grid">
+                            <p><strong>Durabilidade:</strong> 5 dias</p>
+                            <p><strong>Fornecedor:</strong> Produção própria</p>
+                            <p><strong>Entrada:</strong> 22/06/2024</p>
+                            <p><strong>Cor:</strong> Misto</p>
+                        </div>
+                        <div class="validade-indicator validade-proxima">
+                            ⚠️ Atenção - 2 dias restantes
+                        </div>
+                    </div>
+                    
+                    <div class="produto-status">
+                        <div class="estoque-visual">
+                            <span class="estoque-numero">3</span>
+                            <span class="estoque-label">unidades</span>
+                        </div>
+                        <span class="status-indicator status-critico"></span>
+                    </div>
+                    
+                    <div class="produto-preco">
+                        <span class="preco-valor">R$ 65,00</span>
+                        <span class="preco-unidade">por buquê</span>
+                    </div>
+                    
+                    <div class="produto-acoes">
+                        <button class="btn-acao btn-editar" onclick="editarProduto(3)">✏️ Editar</button>
+                        <button class="btn-acao btn-excluir" onclick="excluirProduto(3)">🗑️ Excluir</button>
+                    </div>
+                </div>
+
+                <!-- Mensagem quando não há produtos -->
+                <div id="sem-produtos" class="sem-produtos" style="display: none;">
+                    <p>Nenhuma flor cadastrada ainda</p>
+                    <p>Use o formulário acima para adicionar seus produtos</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div id="modal" class="modal">
+        <div class="modal-conteudo">
+            <h3>Confirmar Exclusão</h3>
+            <p>Deseja realmente excluir este produto?</p>
+            <p style="font-size: 0.875rem; color: var(--gray);">Esta ação não pode ser desfeita.</p>
+            <div class="modal-botoes">
+                <button id="confirmar-exclusao" class="btn-perigo">🗑️ Excluir</button>
+                <button id="cancelar-exclusao">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificação -->
+    <div id="notificacao" class="notificacao"></div>
+
+    <!-- Modal de venda -->
+    <div id="modal-venda" class="modal">
+        <div class="modal-conteudo">
+            <h3>💰 Registrar Venda</h3>
+            <p id="produto-venda-nome" style="font-weight: 600; color: var(--primary); margin-bottom: 1rem;"></p>
+            <div class="campo">
+                <label for="quantidade-venda">Quantidade vendida:</label>
+                <input type="number" id="quantidade-venda" min="1" value="1" class="modal-input">
+                <p style="font-size: 0.875rem; color: var(--gray); margin-top: 0.5rem;">
+                    Disponível em estoque: <span id="estoque-disponivel"></span>
+                </p>
+            </div>
+            <div class="modal-botoes">
+                <button id="confirmar-venda" class="btn-confirmar">💰 Confirmar Venda</button>
+                <button id="cancelar-venda" onclick="fecharModalVenda()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
